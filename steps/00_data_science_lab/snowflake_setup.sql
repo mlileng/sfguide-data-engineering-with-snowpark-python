@@ -54,6 +54,8 @@ COPY INTO hol_db.raw.shift_sales
 FROM @hol_db.raw.s3load/analytics/shift_sales/;
 
 -- join in SafeGraph data
+
+ show databases;
 CREATE OR REPLACE TABLE hol_db.harmonized.shift_sales
   AS
 SELECT
@@ -68,7 +70,7 @@ SELECT
     b.latitude,
     b.longitude
 FROM hol_db.raw.shift_sales a
-JOIN frostbyte_safegraph.public.frostbyte_tb_safegraph_s b
+JOIN FROSTBYTE_SAFEGRAPH.public.frostbyte_tb_safegraph_s b
 ON a.location_id = b.location_id;
 
 -- promote the harmonized table to the analytics layer for data science development
